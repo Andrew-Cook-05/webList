@@ -9,8 +9,7 @@
   padding: 20px; /* Space between the edge of the box and the content */
   box-sizing: border-box; /* Border box constrains whole box, content box only constrains content, padding can make box larger */
 
-  background: rgb(247, 127, 185);
-
+  background: rgb(255, 255, 255);
 }
 
 .main-container {
@@ -27,6 +26,16 @@
   padding: 20px;
   box-sizing: border-box;
 
-  background: rgb(201, 250, 255);
+  background: rgb(210, 210, 210);
 }
 
+.title-container {
+  width: 50%;
+  min-height: 64px;
+  background: rgb(146, 146, 146);
+}
+
+.title-text{
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight:bold;
+}
