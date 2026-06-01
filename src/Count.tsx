@@ -4,7 +4,6 @@ import './Count.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [message, setMessage] = useState("")
 
   function changeCount(amt: number) {
     setCount(prev => Math.max(0, prev + amt));
