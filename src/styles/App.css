@@ -1,0 +1,131 @@
+.standard-text{
+  text-align: start;
+
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button {
+  background-color: rgb(255, 255, 255);
+  border: 2px outset buttonface;
+  display: inline-flex;
+
+  min-height: 16px;
+  min-width: 48px;
+}
+
+.text-box {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 32px;
+  min-width: 32px;
+  height: auto;
+  width: auto;
+
+  padding: 5px;
+  box-sizing: border-box;
+
+  justify-content: flex-start;
+  align-items: center;
+
+  background: gray;
+}
+
+.page-container {
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex; /* Flex containers can be shaped according to various rules, and adjust to screen size. Default to them */
+  justify-content: center; /* Mainline - direction parallel to flex-direction */
+  align-items: center; /* Crossline - direction perpendicular to flex-direction */
+
+  padding: 20px; /* Space between the edge of the box and the content */
+  box-sizing: border-box; /* Border box constrains whole box, content box only constrains content, padding can make box larger */
+
+  background: rgb(255, 255, 255);
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%; /* When inside a flex, this makes it expand to the constraints of the flex*/
+  width: 100%;
+
+  min-height: calc(100vh - 40px);
+  justify-content: top;
+  gap: 20px;
+  align-items: center;
+
+  padding: 20px;
+  box-sizing: border-box;
+
+  background: rgb(203, 203, 203);
+}
+
+.top-bar-container {
+  display: flex;
+  flex-direction: row;
+
+  min-height: 16px;
+  height: calc(10% + 20px);
+  width: calc(100% + 40px);
+
+  padding: 5px;
+  box-sizing: border-box;
+
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-top: -20px;
+
+  background: gray;
+
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-bar-button {
+  height: 100%;
+}
+
+.profile-container {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background: red;
+
+  height: 100%
+}
+
+.profile-button {
+  background-color: rgb(255, 255, 255);
+  border: 2px outset buttonface;
+}
+
+/*.login-button {
+  background-color: rgb(187, 187, 187);
+}
+
+.logout-button {
+  background-color: rgb(187, 187, 187);
+}*/
+
+.profile-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+
+  width: 100%;
+
+  background: white;
+  border: 2px solid #ccc;
+  padding: 8px;
+  
+  box-sizing: border-box;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
