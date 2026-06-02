@@ -1,5 +1,5 @@
 .title-container {
-  width: 50%;
+  width: 25%;
   min-height: 64px;
   background: gray;
   display: flex;
@@ -10,5 +10,8 @@
 .title-text{
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-weight:bold;
-  text-align: center;
+}
+
+.table {
+  color: black;
 }

@@ -10,8 +10,8 @@ export default function Profile() {
     <PageWrap>
       <h1>Profile Page</h1>
       <div className="text-box">
-        {<p className="standard-text">Name: {user?.displayName}<br />
-          Email: {user?.email}<br />
+        {<p className="standard-text">Name: {user?.displayName ?? "No display name found"}<br />
+          Email: {user?.email ?? "No email address found"}<br />
           Phone Number: {user?.phoneNumber ?? "No phone number found"}<br /><br />
         </p>}
         {<p className="standard-text" style={{ textAlign: "center"}}>All data will remain anonymous.</p>}
