@@ -14,4 +14,74 @@
 
 .table {
   color: black;
+  border-collapse: collapse;
+  width: 75%;
+  table-layout: fixed;
+}
+
+.table th,
+.table td {
+  border: 1px solid black;
+  text-align: left;
+  padding: 4px;
+}
+
+.header-cell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sort-icon {
+  margin-left: auto;
+}
+
+.view-mode-button {
+  width: 96px;
+}
+
+.table-box {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 32px;
+  min-width: 32px;
+  height: auto;
+  width: auto;
+
+  padding: 20px;
+  box-sizing: border-box;
+  gap: 10px;
+
+  justify-content: flex-start;
+  align-items: center;
+
+  background: gray;
+}
+
+.modal-overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  z-index: 99;
+}
+
+.modal {
+  background: gray;
+
+  padding: 20px;
+
+  border-radius: 8px;
+
+  min-width: 300px;
 }

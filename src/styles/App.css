@@ -1,8 +1,18 @@
+html {
+  scrollbar-gutter: stable;
+}
+
 .standard-text{
   text-align: start;
 
   color: black;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.H3 {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight:bold;
+  color: black;
 }
 
 .button {
