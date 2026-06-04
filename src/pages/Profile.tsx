@@ -1,7 +1,6 @@
 import { logout } from "../context/AuthContext";
 import { useAuth } from "../context/AuthContext";
 import PageWrap from "../assets/pageWrap";
-import style from "../styles/Profile.module.css"
 
 export default function Profile() {
   const { user } = useAuth();
@@ -16,7 +15,7 @@ export default function Profile() {
         </p>}
         {<p className="standard-text" style={{ textAlign: "center"}}>All data will remain anonymous.</p>}
       </div>
-      <button className={`"button" ${style["large-logout-button"]}`} onClick={logout}>Logout</button>
+      <button className="button danger-button" onClick={logout}>Logout</button>
     </PageWrap>
   );
 }

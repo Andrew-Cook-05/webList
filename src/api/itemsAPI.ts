@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import type { Item } from "../types/Item";
 
@@ -34,4 +34,25 @@ export async function fetchItems(userId: string): Promise<Item[]> {
       createdDate: data.createdDate.toDate()
     }
   });
+}
+
+export async function createDbItem(userId: string, name: string, category: string, status: Item["status"]): Promise<Item> {
+  const date = new Date();
+  const doc = await addDoc(collection(db, "users", userId, "items"), {
+    name: name,
+    category: category,
+    status: status,
+    createdDate: date
+  });
+  return {
+    id: doc.id,
+    name: name,
+    category: category,
+    status: status,
+    createdDate: date
+  }
+}
+
+export async function deleteDbItem(userId: string, itemId: string): Promise<void> {
+  await(deleteDoc(doc(db, "users", userId, "items", itemId)));
 }

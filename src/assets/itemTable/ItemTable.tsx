@@ -51,10 +51,10 @@ export default function ItemTable({ items, sortBy, sortDirection, onSort, setDel
     <table className={style.table}>
       <colgroup>
         <col style={{ width: "20%" }}/>
-        <col style={{ width: "40%" }}/>
+        <col style={{ width: "45%" }}/>
         <col style={{ width: "15%" }}/>
         <col style={{ width: "15%" }}/>
-        <col style={{ width: "10%" }}/>
+        <col style={{ width: "5%" }}/>
       </colgroup>
       <thead>
         <tr>
@@ -82,7 +82,7 @@ export default function ItemTable({ items, sortBy, sortDirection, onSort, setDel
               <span className={style["sort-icon"]}>{getSortIcon("date")}</span>
             </div>
           </th>
-          <th>Delete</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

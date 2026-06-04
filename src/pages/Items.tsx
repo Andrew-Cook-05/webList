@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import PageWrap from "../assets/pageWrap.tsx"
 import ItemTable from "../assets/itemTable/ItemTable.tsx"
 import type { Item } from "../types/Item.ts"
-import { fakeFetchItems } from "../api/fakeItemsAPI.ts"
-import { createTestItem, fetchItems } from "../api/itemsAPI.ts"
+import { fetchItems, deleteDbItem, createDbItem } from "../api/itemsAPI.ts"
 import { useAuth } from "../context/AuthContext.tsx"
+import Dropdown from "../assets/dropdown.tsx"
 
 import style from "../styles/Items.module.css"
 
@@ -27,6 +27,7 @@ export default function Items() {
   const [deleteTarget, setDeleteTarget] = useState<Item | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string|null>(null);
+  const [addStatus, setAddStatus] = useState<Item["status"]>("Not Started");
 
   // API Loading
   useEffect(() => {
@@ -53,27 +54,30 @@ export default function Items() {
     }
   }
 
-  function addItem(name: string, category: string, status: Item["status"]) {
-    const item: Item = {
-      id: crypto.randomUUID(),
-      name: formData.name,
-      category: formData.category,
-      status: formData.status,
-      createdDate: new Date()
-    };
-
-    setItemList(prev => [...prev, item])
-    setFormData({name: "", category: "", status: "Not Started"});
-
-    setIsAddOpen(false);
+  async function addItem(name: string, category: string, status: Item["status"]) {
+    try {
+      const item = await createDbItem(userId, name, category, status);
+      setItemList(prev => [...prev, item])
+      setIsAddOpen(false);
+      setFormData({name: "", category: "", status: "Not Started"});
+    } catch (error) {
+      console.error(error);
+      alert("Delete failed. " + error);
+    }
   }
 
   function updateField(field: keyof typeof formData, value: string) {
     setFormData(prev => ({...prev, [field]: value}));
   }
 
-  function deleteItem(id: string) {
-    setItemList(prev => prev.filter(item => item.id !== id));
+  async function deleteItem(id: string) {
+    try {
+      await deleteDbItem(userId, id);
+      setItemList(prev => prev.filter(item => item.id !== id));
+    } catch (error) {
+      console.error(error);
+      alert("Delete failed. " + error);
+    }
   }
 
   function updateStatus(id: string, status: Item["status"]) {
@@ -131,7 +135,6 @@ export default function Items() {
           Items
         </h2>
       </div>
-      <button className="button" onClick={() => createTestItem(userId)}>Test</button>
       <div className={style["table-box"]}>
         <button className="button" onClick={() => setIsAddOpen(true)}>Add Item</button>
         <ItemTable items={itemList} sortBy={sortBy} sortDirection={sortDirection} onSort={handleSort} setDeleteTarget={setDeleteTarget} updateStatus={updateStatus}/>
@@ -140,16 +143,27 @@ export default function Items() {
         <div className={style["modal-overlay"]}>
           <div className={style["modal"]}>
             <h3 className="H3">Create Item</h3>
-              <input placeholder="Category" value={formData.category} onChange={(e) => updateField("category", e.target.value)}/>
-              <input placeholder="Name" value={formData.name} onChange={(e) => updateField("name", e.target.value)}/>
-              <select value={formData.status} onChange={(e) => updateField("status", e.target.value)}>
-                <option value="Not Started">Not Started</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Completed"> Completed</option>
-              </select>
-              <button className="button" onClick={() => addItem(formData.name, formData.category, formData.status)}>Add Item</button>
+            <div className={style["modal-add-inputs"]}>
+              <input className="text-input" placeholder="Category" value={formData.category} onChange={(e) => updateField("category", e.target.value)}/>
+              <input className="text-input" placeholder="Name" value={formData.name} onChange={(e) => updateField("name", e.target.value)}/>
+              <Dropdown trigger={<button className={`button ${style["status-button"]}`}>{addStatus + " ▼"}</button>}>
+                <button className="button" onClick={() => setAddStatus("Not Started")}>
+                  Not Started
+                </button>
 
-            <button className="button" onClick={() => setIsAddOpen(false)}>Cancel</button>
+                <button className="button" onClick={() => setAddStatus("In Progress")}>
+                    In Progress
+                </button>
+
+                <button className="button" onClick={() => setAddStatus("Completed")}>
+                    Completed
+                </button>
+              </Dropdown>
+            </div>
+            <div className={style["modal-buttons"]}>
+              <button className="button" onClick={() => addItem(formData.name, formData.category, formData.status)}>Add Item</button>
+              <button className="button" onClick={() => setIsAddOpen(false)}>Cancel</button>
+            </div>
           </div>
         </div>
       )}
@@ -158,8 +172,10 @@ export default function Items() {
           <div className={style["modal"]}>
             <h3 className="H3">Delete Item</h3>
             <p className="standard-text">Are you sure you want to delete this item?</p>
-            <button className="button" onClick={() => {deleteItem(deleteTarget.id); setDeleteTarget(null)}}>Confirm Delete</button>
-            <button className="button" onClick={() => setDeleteTarget(null)}>Cancel</button>
+            <div className={style["modal-buttons"]}>
+              <button className="button danger-button" onClick={() => {deleteItem(deleteTarget.id); setDeleteTarget(null)}}>Confirm Delete</button>
+              <button className="button" onClick={() => setDeleteTarget(null)}>Cancel</button>
+            </div>
           </div>
         </div>
       )}

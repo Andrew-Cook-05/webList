@@ -1,29 +1,44 @@
+/* Styling Order
+1. Layout (display, flex-direction, justify-content, align-items, position)
+2. Sizing (box-sizing, height, width, min-height, min-width, max-height, max-width)
+3. Spacing (padding, margin, gap)
+4. Typography (font-family, font-size, font-weight, font-align, line-height)
+5. Colors (background-color, color)
+6. Borders (border, border-radius)
+7. Effects (box-shadow, opacity)
+8. Interaction (cursor, transition)
+
+
+*/
+
+/* Global Settings */
+:root {
+  --main-green-light: rgb(223, 240, 216);
+  --main-green: rgb(200, 230, 201);
+  --main-green-dark: rgb(149, 186, 150);
+  --main-green-ultra-dark: rgb(123, 165, 125);
+  --main-green-ultra-ultra-dark: rgb(89, 124, 91);
+
+  --gray-ultra-light: rgb(238, 238, 238);
+  --gray-light: rgb(221, 221, 221);
+  --gray: rgb(128, 128, 128);
+  --gray-dark: rgb(85, 85, 85);
+
+  --danger-red: rgb(232, 49, 49);
+  --danger-red-dark: rgb(159, 37, 37);
+
+  --blank: rgb(0, 0, 0, 0);
+}
+
 html {
   scrollbar-gutter: stable;
 }
 
-.standard-text{
-  text-align: start;
-
-  color: black;
+html, body {
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.H3 {
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  font-weight:bold;
-  color: black;
-}
-
-.button {
-  background-color: rgb(255, 255, 255);
-  border: 2px outset buttonface;
-  display: inline-flex;
-
-  min-height: 16px;
-  min-width: 48px;
-}
-
+/* Dividers */
 .text-box {
   display: flex;
   flex-direction: column;
@@ -39,9 +54,138 @@ html {
   justify-content: flex-start;
   align-items: center;
 
-  background: gray;
+  background: var(--main-green-ultra-dark);
 }
 
+/* Text */
+.standard-text{
+  text-align: start;
+
+  color: black;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.H3 {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight:bold;
+  color: black;
+}
+
+/* Images */
+.profile-image {
+  height: 100%;
+  width: 100%;
+
+  object-fit: cover;
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 32px;
+  min-width: 32px;
+
+  padding: 0 12px;
+
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+
+  background-color: var(--main-green-light);
+  color: black;
+
+  border: 2px solid var(--main-green);
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.button:hover {
+  filter: brightness(0.9);
+}
+
+.button:active {
+  filter: brightness(0.8);
+}
+
+.danger-button {
+  background-color: var(--danger-red);
+
+  border: 2px solid var(--danger-red-dark);
+}
+
+.empty-button {
+  background-color: rgb(0, 0, 0, 0);
+  border: 0px;
+}
+
+.home-button {
+  justify-content: normal;
+  align-items: normal;
+
+  height: clamp(40px, 6vh, 56px);
+  aspect-ratio: 1;
+
+  padding: 0px;
+
+  border-radius: 100%;
+}
+
+.profile-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: clamp(40px, 6vh, 56px);;
+  aspect-ratio: 1;
+
+  padding: 0;
+
+  border-radius: 100%;
+
+  overflow: hidden;
+}
+
+/* Dropdowns */
+.dropdown {
+  display: inline-block;
+  position: relative;
+  width: 95%
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 50;
+
+  box-sizing: border-box;
+  min-width: 150px;
+
+  padding: 4px;
+  gap: 8px;
+
+  background: var(--main-green-dark);
+
+  border: 2px solid var(--main-green-ultra-dark);
+  border-radius: 8px;
+}
+
+/* Input Fields */
+
+.text-input {
+  background: var(--main-green-light);
+
+  border: 2px solid var(--main-green);
+  border-radius: 8px;
+}
+
+/* Page Wrap */
 .page-container {
   min-height: 100vh;
   width: 100%;
@@ -53,7 +197,7 @@ html {
   padding: 20px; /* Space between the edge of the box and the content */
   box-sizing: border-box; /* Border box constrains whole box, content box only constrains content, padding can make box larger */
 
-  background: rgb(255, 255, 255);
+  background: var(--gray-ultra-light);
 }
 
 .main-container {
@@ -71,7 +215,7 @@ html {
   padding: 20px;
   box-sizing: border-box;
 
-  background: rgb(203, 203, 203);
+  background: var(--main-green-dark);
 }
 
 .top-bar-container {
@@ -79,7 +223,7 @@ html {
   flex-direction: row;
 
   min-height: 16px;
-  height: calc(10% + 20px);
+  height: clamp(48px, 8vh, 80px);
   width: calc(100% + 40px);
 
   padding: 5px;
@@ -89,14 +233,10 @@ html {
   margin-right: -20px;
   margin-top: -20px;
 
-  background: gray;
+  background: var(--main-green-ultra-ultra-dark);
 
   justify-content: space-between;
   align-items: center;
-}
-
-.top-bar-button {
-  height: 100%;
 }
 
 .profile-container {
@@ -104,38 +244,6 @@ html {
   position: relative;
   justify-content: center;
   align-items: center;
-  background: red;
 
   height: 100%
-}
-
-.profile-button {
-  background-color: rgb(255, 255, 255);
-  border: 2px outset buttonface;
-}
-
-/*.login-button {
-  background-color: rgb(187, 187, 187);
-}
-
-.logout-button {
-  background-color: rgb(187, 187, 187);
-}*/
-
-.profile-dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-
-  width: 100%;
-
-  background: white;
-  border: 2px solid #ccc;
-  padding: 8px;
-  
-  box-sizing: border-box;
-  
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }

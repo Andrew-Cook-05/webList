@@ -1,4 +1,6 @@
 import type { Item } from "../../types/Item.ts"
+import Dropdown from "../dropdown.tsx"
+import style from "../../styles/Items.module.css"
 
 
 export default function ItemRow({ item, setDeleteTarget, updateStatus }: 
@@ -7,18 +9,24 @@ export default function ItemRow({ item, setDeleteTarget, updateStatus }:
     <tr>
       <td> { item.category } </td>
       <td> { item.name } </td>
-      <td>
-        <select value={item.status} onChange={(e) => updateStatus(item.id, e.target.value as Item["status"])}>
-          <option value="Not Started">Not Started</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Completed">Completed</option>
-        </select>
+      <td className={style["status-cell"]}>
+        <Dropdown trigger={<button className={`button ${style["status-button"]}`}>{item.status + " ▼"}</button>}>
+            <button className="button" onClick={() => updateStatus(item.id, "Not Started")}>
+                Not Started
+            </button>
+
+            <button className="button" onClick={() => updateStatus(item.id, "In Progress")}>
+                In Progress
+            </button>
+
+            <button className="button" onClick={() => updateStatus(item.id, "Completed")}>
+                Completed
+            </button>
+        </Dropdown>
       </td>
-
-
-      <td> { item.createdDate.toLocaleDateString() }</td>
-      <td>
-        <button className="button" onClick={() => setDeleteTarget(item)}>Delete</button>
+      <td className={style["center-text-cell"]}> { item.createdDate.toLocaleDateString() }</td>
+      <td className={style["center-text-cell"]}>
+        <button className={style["delete-button"]} onClick={() => setDeleteTarget(item)}>-</button>
       </td>
     </tr>
   )
