@@ -42,19 +42,25 @@ html, body {
 .text-box {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 
+  box-sizing: border-box;
   min-height: 32px;
   min-width: 32px;
   height: auto;
   width: auto;
 
   padding: 5px;
-  box-sizing: border-box;
-
-  justify-content: flex-start;
-  align-items: center;
 
   background: var(--main-green-ultra-dark);
+}
+
+.formatting-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 /* Text */
@@ -63,6 +69,10 @@ html, body {
 
   color: black;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.center-text{
+  text-align: center;
 }
 
 .H3 {
@@ -101,6 +111,13 @@ html, body {
 
   cursor: pointer;
   transition: filter 0.15s ease;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  background-color: var(--gray-light);
+  border-color: var(--gray);
+  color: var(--gary-dark);
 }
 
 .button:hover {

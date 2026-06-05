@@ -56,3 +56,9 @@ export async function createDbItem(userId: string, name: string, category: strin
 export async function deleteDbItem(userId: string, itemId: string): Promise<void> {
   await(deleteDoc(doc(db, "users", userId, "items", itemId)));
 }
+
+export async function deleteDbItems(userId: string, itemIds: string[]): Promise<void> {
+  for (const id of itemIds) {
+    await(deleteDoc(doc(db, "users", userId, "items", id)));
+  }
+}

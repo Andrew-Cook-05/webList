@@ -3,10 +3,14 @@ import Dropdown from "../dropdown.tsx"
 import style from "../../styles/Items.module.css"
 
 
-export default function ItemRow({ item, setDeleteTarget, updateStatus }: 
-  { item: Item; setDeleteTarget: React.Dispatch<React.SetStateAction<Item | null>>; updateStatus:(id: string, status: Item["status"]) => void}) {
+export default function ItemRow({ item, setDeleteTarget, updateStatus, selectedIds, toggleSelectedId }: 
+  { item: Item; setDeleteTarget: React.Dispatch<React.SetStateAction<Item | null>>; updateStatus:(id: string, status: Item["status"]) => void;
+    selectedIds: string[]; toggleSelectedId:(id: string) => void }) {
   return (
     <tr>
+      <td className={style["center-text-cell"]}>
+        <input type="checkbox" checked={selectedIds.includes(item.id)} onChange={() => toggleSelectedId(item.id)}/>
+      </td>
       <td> { item.category } </td>
       <td> { item.name } </td>
       <td className={style["status-cell"]}>
