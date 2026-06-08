@@ -72,13 +72,15 @@ export default function Items() {
     setFormData(prev => ({...prev, [field]: value}));
   }
 
-  async function deleteItem(id: string) {
-    try {
-      await deleteDbItem(userId, id);
-      setItemList(prev => prev.filter(item => item.id !== id));
-    } catch (error) {
-      console.error(error);
-      alert("Delete failed. " + error);
+  async function deleteItem(id: string | undefined) {
+    if (id != undefined) {
+      try {
+        await deleteDbItem(userId, id);
+        setItemList(prev => prev.filter(item => item.id !== id));
+      } catch (error) {
+        console.error(error);
+        alert("Delete failed. " + error);
+      }
     }
   }
 
@@ -186,7 +188,7 @@ export default function Items() {
             <div className={style["modal-add-inputs"]}>
               <input className="text-input" placeholder="Category" value={formData.category} onChange={(e) => updateField("category", e.target.value)}/>
               <input className="text-input" placeholder="Name" value={formData.name} onChange={(e) => updateField("name", e.target.value)}/>
-              <Dropdown trigger={<button className={`button ${style["status-button"]}`}>{addStatus + " ▼"}</button>}>
+              <Dropdown trigger={<button className={`button ${style["status-button-general"]}`}>{addStatus + " ▼"}</button>}>
                 <button className="button" onClick={() => setAddStatus("Not Started")}>
                   Not Started
                 </button>
@@ -211,25 +213,16 @@ export default function Items() {
         <div className={style["modal-overlay"]}>
           <div className={style["modal"]}>
             <h3 className="H3">Delete Item</h3>
-            {deleteTarget !== null && (
-              <div className="formatting-box">
-                <p className="standard-text">Are you sure you want to delete this item?</p>
-                <div className={style["modal-buttons"]}>
-                  <button className="button danger-button" onClick={() => {deleteItem(deleteTarget.id); setDeleteTarget(null)}}>Confirm Delete</button>
-                  <button className="button" onClick={() => setDeleteTarget(null)}>Cancel</button>
-                </div>
+              <p className="standard-text">{deleteTarget ? "Are you sure you want to delete this item?" : "Are you sure you want to delete these items?"}</p>
+              <div className={style["modal-buttons"]}>
+                <button className="button danger-button" onClick={() => {
+                  if (deleteTarget) {
+                    deleteItem(deleteTarget?.id); setDeleteTarget(null);
+                  } else {
+                    deleteSelectedItems(); setIsDeleteOpen(false);
+                  }}}>Confirm Delete</button>
+                <button className="button" onClick={() => {setDeleteTarget(null); setIsDeleteOpen(false);}}>Cancel</button>
               </div>
-            )}
-            {selectedIds.length > 0 && (
-              <div className="formatting-box">
-                <p className="standard-text">Are you sure you want to delete these items?</p>
-                <div className={style["modal-buttons"]}>
-                  <button className="button danger-button" onClick={() => {deleteSelectedItems(); setIsDeleteOpen(false)}}>Confirm Delete</button>
-                  <button className="button" onClick={() => setIsDeleteOpen(false)}>Cancel</button>
-                </div>
-              </div>
-            )} 
-            
           </div>
         </div>
       )}

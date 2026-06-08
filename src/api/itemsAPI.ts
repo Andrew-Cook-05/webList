@@ -62,3 +62,5 @@ export async function deleteDbItems(userId: string, itemIds: string[]): Promise<
     await(deleteDoc(doc(db, "users", userId, "items", id)));
   }
 }
+
+

@@ -38,19 +38,12 @@ export default function PageWrap({ children }: { children: React.ReactNode }) {
               <>
                 <Dropdown trigger={
                   <button className="button profile-button" onClick={() => setProfileDropdownOpen(prev => !prev)}>
-                    <img src={user?.photoURL ?? "Test"} alt="Profile" className="profile-image"/>
+                    <img src={user?.photoURL ?? "Profile"} alt="Profile" className="profile-image"/>
                   </button>
                 }>
                   <button className="button" onClick={() => navigate("/profile")}>Profile</button>
                   <button className="button danger-button" onClick={logout}>Logout</button>
                 </Dropdown>
-                
-                {/*profileDropdownOpen && (
-                  <div className="profile-dropdown-menu">
-                    <button className="button" onClick={() => navigate("/profile")}>Profile</button>
-                    <button className="button danger-button" onClick={logout}>Logout</button>
-                  </div>
-                )*/}
               </>
             ) : (
               <button className="button" onClick={login}>Login</button>

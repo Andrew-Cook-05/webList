@@ -45,52 +45,54 @@ export default function ItemTable({ items, sortBy, sortDirection, onSort, setDel
 
   return (
     <div className="formatting-box">
-      <table className={style.table}>
-        <colgroup>
-          <col style={{ width: "5%" }}/>
-          <col style={{ width: "20%" }}/>
-          <col style={{ width: "40%" }}/>
-          <col style={{ width: "15%" }}/>
-          <col style={{ width: "15%" }}/>
-          <col style={{ width: "5%" }}/>
-        </colgroup>
-        <thead>
-          <tr>
-            <th className={style["status-cell"]}>
-              <input type="checkbox" checked={(selectedIds.length === items.length) && selectedIds.length !== 0} onChange={() => toggleAllIds()}/>
-            </th>
-            <th onClick={() => onSort("category")}>
-              <div className={style["header-cell"]}>
-                <span>Category</span>
-                <span className={style["sort-icon"]}>{getSortIcon("category")}</span>
-              </div>
-            </th>
-            <th onClick={() => onSort("name")}>
-              <div className={style["header-cell"]}>
-                <span>Name</span>
-                <span className={style["sort-icon"]}>{getSortIcon("name")}</span>
-              </div>
-            </th>
-            <th onClick={() => onSort("status")}>
-              <div className={style["header-cell"]}>
-                <span>Status</span>
-                <span className={style["sort-icon"]}>{getSortIcon("status")}</span>
-              </div>
-            </th>
-            <th onClick={() => onSort("date")}>
-              <div className={style["header-cell"]}>
-                <span>Date</span>
-                <span className={style["sort-icon"]}>{getSortIcon("date")}</span>
-              </div>
-            </th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedItems.map(item => (<ItemRow key={item.id} item={item} setDeleteTarget={setDeleteTarget} updateStatus={updateStatus} 
-          selectedIds={selectedIds} toggleSelectedId={toggleSelectedId}/>))}
-        </tbody>
-      </table>
+      <div className={style["table-wrapper"]}>
+        <table className={style.table}>
+          <colgroup>
+            <col style={{ width: "5%" }}/>
+            <col style={{ width: "20%" }}/>
+            <col style={{ width: "40%" }}/>
+            <col style={{ width: "15%" }}/>
+            <col style={{ width: "15%" }}/>
+            <col style={{ width: "5%" }}/>
+          </colgroup>
+          <thead>
+            <tr>
+              <th className={style["status-cell"]}>
+                <input type="checkbox" checked={(selectedIds.length === items.length) && selectedIds.length !== 0} onChange={() => toggleAllIds()}/>
+              </th>
+              <th onClick={() => onSort("category")}>
+                <div className={style["header-cell"]}>
+                  <span>Category</span>
+                  <span className={style["sort-icon"]}>{getSortIcon("category")}</span>
+                </div>
+              </th>
+              <th onClick={() => onSort("name")}>
+                <div className={style["header-cell"]}>
+                  <span>Name</span>
+                  <span className={style["sort-icon"]}>{getSortIcon("name")}</span>
+                </div>
+              </th>
+              <th onClick={() => onSort("status")}>
+                <div className={style["header-cell"]}>
+                  <span>Status</span>
+                  <span className={style["sort-icon"]}>{getSortIcon("status")}</span>
+                </div>
+              </th>
+              <th onClick={() => onSort("date")}>
+                <div className={style["header-cell"]}>
+                  <span>Date</span>
+                  <span className={style["sort-icon"]}>{getSortIcon("date")}</span>
+                </div>
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedItems.map(item => (<ItemRow key={item.id} item={item} setDeleteTarget={setDeleteTarget} updateStatus={updateStatus} 
+            selectedIds={selectedIds} toggleSelectedId={toggleSelectedId}/>))}
+          </tbody>
+        </table>
+      </div>
       {(items.length === 0) && (
         <div className="text-box">
           <p className="standard-text center-text">No items found.</p>
