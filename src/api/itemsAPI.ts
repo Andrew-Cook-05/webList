@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs, doc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import type { Item } from "../types/Item";
 
@@ -61,6 +61,10 @@ export async function deleteDbItems(userId: string, itemIds: string[]): Promise<
   for (const id of itemIds) {
     await(deleteDoc(doc(db, "users", userId, "items", id)));
   }
+}
+
+export async function updateDbStatus(userId: string, itemId: string, status: Item["status"]): Promise<void> {
+  await updateDoc(doc(db, "users", userId, "items", itemId), {status});
 }
 
 

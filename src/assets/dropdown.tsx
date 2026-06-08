@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import React from "react";
 
 type DropdownProps = {
     trigger: React.ReactNode,
@@ -26,7 +27,20 @@ export default function Dropdown({trigger, children}: DropdownProps) {
             </div>
             {open && (
                 <div className="dropdown-menu">
-                    {children}
+                    {React.Children.map(children, child => {
+                        if (!React.isValidElement(child)) {
+                            return child;
+                        }
+
+                        const element = child as React.ReactElement<{onClick?: (e: React.MouseEvent) => void}>;
+
+                        return React.cloneElement(element, {
+                            onClick: (e: React.MouseEvent) => {
+                                element.props.onClick?.(e);
+                                setOpen(false);
+                            }
+                        })
+                    })}
                 </div>
             )}
         </div>

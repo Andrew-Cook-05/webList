@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import PageWrap from "../assets/pageWrap.tsx"
 import ItemTable from "../assets/itemTable/ItemTable.tsx"
 import type { Item } from "../types/Item.ts"
-import { fetchItems, deleteDbItem, deleteDbItems, createDbItem } from "../api/itemsAPI.ts"
+import { fetchItems, deleteDbItem, deleteDbItems, createDbItem, updateDbStatus } from "../api/itemsAPI.ts"
 import { useAuth } from "../context/AuthContext.tsx"
 import Dropdown from "../assets/dropdown.tsx"
 
@@ -99,7 +99,8 @@ export default function Items() {
   }
 
   function updateStatus(id: string, status: Item["status"]) {
-    setItemList(prev => prev.map(item => item.id == id ? {...item, status} : item))
+    setItemList(prev => prev.map(item => item.id == id ? {...item, status} : item));
+    updateDbStatus(userId, id, status);
   }
 
   function toggleSelectedId(id: string) {
